@@ -21,14 +21,14 @@ internal sealed interface UpdateState {
     /** A manual check found nothing newer. */
     data class UpToDate(val current: Version) : UpdateState
 
-    /** A newer release: its notes in short, and whether Podium can install it itself. */
+    /** A newer release: its notes in short, and whether Pod Music can install it itself. */
     data class Offer(val release: Release, val highlights: List<String>, val canInstall: Boolean) : UpdateState
 
     data class Downloading(val release: Release, val done: Long, val total: Long?) : UpdateState
 
     data class Verifying(val release: Release) : UpdateState
 
-    /** Downloaded and checked; Android must let Podium install apps first. */
+    /** Downloaded and checked; Android must let Pod Music install apps first. */
     data class NeedsPermission(val release: Release) : UpdateState
 
     /** Handed to Android's installer, which asks the listener to confirm. */
@@ -70,7 +70,7 @@ internal class PrefsUpdateStore(context: Context) : UpdateStore {
 }
 
 /**
- * Podium's update check (D-99). When the display switches on (release builds, unless turned off),
+ * Pod Music's update check (D-99). When the display switches on (release builds, unless turned off),
  * it asks GitHub for the newest release, at most every [CHECK_EVERY_MS]. A newer one is offered in a
  * notice with its notes in short: download and install it right there, open its page on GitHub, or
  * ignore that version. Dismissed, the notice comes back after [REMIND_AFTER_MS].
@@ -106,7 +106,7 @@ internal class UpdateCenter(
 
     val version: Version get() = current
 
-    /** Android's page where the listener lets Podium install apps. */
+    /** Android's page where the listener lets Pod Music install apps. */
     fun permissionPage() = installer.permissionPage()
 
     private var job: Job? = null
@@ -240,7 +240,7 @@ internal class UpdateCenter(
 
     private var pending: Pair<Release, File>? = null
 
-    /** Podium is back in front: if the listener has just allowed installs, carry on. */
+    /** Pod Music is back in front: if the listener has just allowed installs, carry on. */
     fun resumed() {
         val (release, file) = pending ?: return
         if (_state.value is UpdateState.NeedsPermission && installer.allowed()) {
@@ -248,7 +248,7 @@ internal class UpdateCenter(
         }
     }
 
-    /** What Android's installer said. Done means Android is replacing Podium. */
+    /** What Android's installer said. Done means Android is replacing Pod Music. */
     fun installFinished(outcome: InstallOutcome, detail: String?) {
         val release = (_state.value as? UpdateState.Installing)?.release ?: pending?.first
         when (outcome) {
@@ -303,7 +303,7 @@ internal class UpdateCenter(
     }
 
     companion object {
-        const val REPOSITORY = "GHOSTxASR/podium-music-player"
+        const val REPOSITORY = "nkosanamahungela-dev/Pod-music"
         const val LATEST_URL = "https://api.github.com/repos/$REPOSITORY/releases/latest"
         const val RELEASES_PAGE = "https://github.com/$REPOSITORY/releases/latest"
 
