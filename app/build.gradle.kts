@@ -18,11 +18,10 @@ android {
     // Internal Kotlin/R namespace; the installed Android package ID is app.podmusic.
     namespace = "app.podium"
     defaultConfig {
-        // Provisional: the product name is pending trademark clearance (docs/repository-audit.md §5).
         applicationId = "app.podmusic"
-        // A device test of the updater (D-99) builds a "newer" copy: -Ppodium.versionCode=7 -Ppodium.versionName=0.1.5.1
-        versionCode = providers.gradleProperty("podium.versionCode").orNull?.toInt() ?: 7
-        versionName = providers.gradleProperty("podium.versionName").orNull ?: "0.1.5.1"
+        // Initial development release.
+        versionCode = 1
+        versionName = "0.1.0"
     }
     buildFeatures {
         buildConfig = true

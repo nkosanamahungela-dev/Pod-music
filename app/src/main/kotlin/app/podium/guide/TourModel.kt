@@ -116,14 +116,14 @@ internal class ModelLabels(private val measurer: TextMeasurer, private val densi
     private fun page(text: String, size: Int, weight: FontWeight = FontWeight.Normal): TextLayoutResult =
         measurer.measure(text, plain.copy(fontSize = size.sp, fontWeight = weight))
 
-    val podium = unit("Podium", 11f, FontWeight.SemiBold)
+    val podMusic = unit("Pod Music", 11f, FontWeight.SemiBold)
     val musicTitle = unit("Music", 11f, FontWeight.SemiBold)
     val home = listOf("Music", "Online", "Shuffle songs", "Now Playing", "Settings").map { unit(it, 11.5f) }
     val music = listOf("Songs", "Albums", "Artists", "Playlists", "Search").map { unit(it, 11.5f) }
     val menu = unit("MENU", 7.5f, FontWeight.SemiBold)
     val stickers = page("Stickers", 17, FontWeight.SemiBold)
     val help = page("Help", 14)
-    val turnOff = page("Turn off Podium", 14)
+    val turnOff = page("Turn off Pod Music", 14)
 }
 
 /** Where the camera looks (model units), how close, how far the model sits aside, and the spotlight. */
