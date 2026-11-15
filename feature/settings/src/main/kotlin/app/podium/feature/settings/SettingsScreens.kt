@@ -71,7 +71,7 @@ import app.podium.core.interaction.WheelContext
 import app.podium.core.interaction.rememberFocusListState
 import app.podium.core.interaction.rememberPodiumHaptics
 
-private enum class SettingsRow { Appearance, PodiumSpace, FullScreen, TitleBarBattery, NowPlayingLayout, HideNowPlayingTray, Keyboard, MusicFolders, OnlineSources, CustomSources, Autoplay, Recommendations, AvoidRepeats, Crossfade, Equalizer, SleepTimer, OnlineLyrics, LyricsCredit, Haptics, Clicks, StartupSound, SoftwareUpdate }
+private enum class SettingsRow { About, Appearance, PodiumSpace, FullScreen, TitleBarBattery, NowPlayingLayout, HideNowPlayingTray, Keyboard, MusicFolders, OnlineSources, CustomSources, Autoplay, Recommendations, AvoidRepeats, Crossfade, Equalizer, SleepTimer, OnlineLyrics, LyricsCredit, Haptics, Clicks, StartupSound, SoftwareUpdate }
 
 /** Settings ▸ Software update (D-99): the version, a check now, and whether Podium checks by itself. */
 interface SoftwareUpdateSettings {
@@ -96,6 +96,7 @@ fun SettingsScreen(
     folders: MusicFolderSettings,
     onlineService: OnlineServiceSettings,
     onAppearance: () -> Unit,
+    onAbout: () -> Unit = {},
     onMusicFolders: () -> Unit,
     onOnlineService: () -> Unit,
     /** Podium's space (D-54) without the two-finger pinch: personalize, stickers, help. */
@@ -158,6 +159,7 @@ fun SettingsScreen(
     val focus = rememberFocusListState("settings")
     val activate: (Int) -> Unit = { index ->
         when (rows[index]) {
+            SettingsRow.About -> onAbout()
             SettingsRow.Appearance -> onAppearance()
             SettingsRow.PodiumSpace -> onPodiumSpace()
             SettingsRow.FullScreen -> {
@@ -265,6 +267,7 @@ fun SettingsScreen(
         modifier = Modifier.fillMaxSize(),
     ) { row, _, focused ->
         when (row) {
+            SettingsRow.About -> MenuRow("About Pod Music", focused)
             SettingsRow.Appearance -> MenuRow("Appearance", focused, value = appearance.display.label)
             SettingsRow.PodiumSpace -> MenuRow("Podium body", focused, value = "Stickers, help, turn off")
             // Typing: the Wheel becomes Podium's keyboard, or the phone's keyboard appears (D-45).
@@ -622,5 +625,80 @@ internal fun equalizerSummary(effects: AudioEffects): String {
     return when {
         eq != null && fx != null -> "$eq, $fx"
         else -> eq ?: fx ?: "Off"
+    }
+}
+
+
+/** Lightweight credits screen. The YouTube Music mark is drawn locally; no remote assets or animation. */
+@Composable
+fun AboutPodMusicScreen() {
+    val context = androidx.compose.ui.platform.LocalContext.current
+    Column(
+        modifier = Modifier.fillMaxSize().padding(24.dp),
+        verticalArrangement = Arrangement.spacedBy(18.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        androidx.compose.foundation.text.BasicText(
+            "Pod Music",
+            style = androidx.compose.ui.text.TextStyle(
+                color = PodiumTheme.colors.foreground,
+                fontSize = androidx.compose.ui.unit.TextUnit(28f, androidx.compose.ui.unit.TextUnitType.Sp),
+            ),
+        )
+        androidx.compose.foundation.text.BasicText(
+            "About & credits",
+            style = androidx.compose.ui.text.TextStyle(color = PodiumTheme.colors.muted),
+        )
+        androidx.compose.foundation.text.BasicText(
+            "Lead Developer",
+            style = androidx.compose.ui.text.TextStyle(color = PodiumTheme.colors.muted),
+        )
+        androidx.compose.foundation.text.BasicText(
+            "Smelokuhle Mahungela",
+            style = androidx.compose.ui.text.TextStyle(
+                color = PodiumTheme.colors.foreground,
+                fontSize = androidx.compose.ui.unit.TextUnit(20f, androidx.compose.ui.unit.TextUnitType.Sp),
+            ),
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
+                    val intent = android.content.Intent(
+                        android.content.Intent.ACTION_VIEW,
+                        android.net.Uri.parse("https://music.youtube.com/"),
+                    )
+                    context.startActivity(intent)
+                }
+                .padding(vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            // Simple local play mark, styled in YouTube Music red.
+            Box(
+                modifier = Modifier
+                    .size(28.dp)
+                    .background(Color(0xFFFF0033), CircleShape),
+                contentAlignment = Alignment.Center,
+            ) {
+                androidx.compose.foundation.text.BasicText(
+                    "▶",
+                    style = androidx.compose.ui.text.TextStyle(color = Color.White),
+                )
+            }
+            Spacer(Modifier.width(10.dp))
+            androidx.compose.foundation.text.BasicText(
+                "YouTube Music",
+                style = androidx.compose.ui.text.TextStyle(color = PodiumTheme.colors.foreground),
+            )
+        }
+        androidx.compose.foundation.text.BasicText(
+            "Sponsored by YouTube Music",
+            style = androidx.compose.ui.text.TextStyle(color = PodiumTheme.colors.muted),
+        )
+        androidx.compose.foundation.text.BasicText(
+            "Pod Music is an independent project and is not affiliated with or endorsed by YouTube or Google.",
+            style = androidx.compose.ui.text.TextStyle(color = PodiumTheme.colors.muted),
+        )
     }
 }
