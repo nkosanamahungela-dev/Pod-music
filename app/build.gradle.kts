@@ -15,6 +15,7 @@ fun secret(key: String, env: String): String? = signing.getProperty(key) ?: Syst
 val releaseStore = secret("storeFile", "PODIUM_KEYSTORE_FILE")
 
 android {
+    // Internal Kotlin/R namespace; the installed Android package ID is app.podmusic.
     namespace = "app.podium"
     defaultConfig {
         // Provisional: the product name is pending trademark clearance (docs/repository-audit.md §5).

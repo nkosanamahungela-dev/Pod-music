@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="site/"><img src="docs/media/banner.jpg" alt="Pod Music: the wordmark above a Pod Music playing Cover Flow, album covers flowing through it" width="100%" /></a>
+  <a href="site/"><img src="docs/media/banner.jpg" alt="Pod Music: the wordmark above Pod Music showing Cover Flow, album covers flowing through it" width="100%" /></a>
 </p>
 
 <h1 align="center">Pod Music</h1>
@@ -7,8 +7,6 @@
 <p align="center"><b>The wheel is back.</b> An Android music player that lives inside one beautifully engineered device.</p>
 
 <p align="center">
-  <a href="#"><img alt="Download the APK" src="https://img.shields.io/badge/Download-APK-d9c7ae?style=for-the-badge&labelColor=0e0e10" /></a>
-  <a href="https://github.com/nkosanamahungela-dev/Pod-music/releases"><img alt="Latest release" src="https://img.shields.io/github/v/release/GHOSTxASR/podium-music-player?style=for-the-badge&color=d9c7ae&labelColor=0e0e10" /></a>
   <a href="LICENSE"><img alt="License: GPL-3.0" src="https://img.shields.io/badge/License-GPL--3.0-d9c7ae?style=for-the-badge&labelColor=0e0e10" /></a>
   <img alt="Android 10 or later" src="https://img.shields.io/badge/Android-10%2B-d9c7ae?style=for-the-badge&labelColor=0e0e10" />
 </p>
@@ -23,14 +21,11 @@ catalogue is built in, and there are no ads and no analytics.
 
 <p align="center"><img src="docs/media/screens.jpg" alt="Pod Music in Silver, Carbon, Burgundy with stickers, Bone and Glacier blue" width="100%" /></p>
 
-## Download
+## Releases
 
-1. Releases are not published yet. Build the app from source until your first Pod Music release is available.
-2. Open it on your phone. Android asks once to allow installs from your browser or file manager.
-3. Open Pod Music and turn the wheel.
+Pod Music has not been released yet. Until the first APK is published, build it from source using the instructions below. Future builds will be published in the [GitHub Releases](https://github.com/nkosanamahungela-dev/Pod-music/releases) page.
 
-Needs Android 10 or later. Every release is signed with the same key, so new versions install over
-old ones and keep your library, finishes and stickers.
+Needs Android 10 or later.
 
 ## What's inside
 
