@@ -18,7 +18,7 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 /**
- * Podium's update check (D-99): GitHub's newest release read, its notes in short, offered when newer,
+ * Pod Music's update check (D-99): GitHub's newest release read, its notes in short, offered when newer,
  * ignored or put off as the listener says, downloaded, checked and handed to Android's installer.
  */
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -39,8 +39,8 @@ class UpdatesTest {
     fun `the newest release is read with its app and checksum`() {
         val r = Releases.parse(release("v0.1.4"))!!
         assertEquals("0.1.4", r.version.toString())
-        assertEquals("https://github.com/GHOSTxASR/podium-music-player/releases/tag/v0.1.4", r.pageUrl)
-        assertEquals("https://github.com/GHOSTxASR/podium-music-player/releases/download/v0.1.4/podium.apk", r.apk!!.url)
+        assertEquals("https://github.com/nkosanamahungela-dev/Pod-music/releases/tag/v0.1.4", r.pageUrl)
+        assertEquals("https://github.com/nkosanamahungela-dev/Pod-music/releases/download/v0.1.4/pod-music.apk", r.apk!!.url)
         assertEquals(40_441_014L, r.apk!!.size)
         assertEquals(SHA, r.apk!!.sha256)
         assertNull(Releases.parse(release("v0.1.4", draft = true)), "a draft isn't a release")
@@ -54,7 +54,7 @@ class UpdatesTest {
         val short = ReleaseNotes.short(NOTES)
         assertEquals(
             listOf(
-                "Podium 0.1.3 adds full screen, live radio, YouTube channel choice, sound effects and Apple Lossless on every phone, with a new icon.",
+                "Pod Music 0.1.3 adds full screen, live radio, YouTube channel choice, sound effects and Apple Lossless on every phone, with a new icon.",
                 "Full screen",
                 "Choose your channel",
                 "Live radio",
@@ -63,14 +63,14 @@ class UpdatesTest {
             short,
         )
         // A bullet without a bold headline gives its first sentence.
-        assertEquals(listOf("Lyrics no longer say Too many requests so often"), ReleaseNotes.short("### Fixed\n- Lyrics no longer say \"Too many requests\" so often: Podium waits.").map { it.replace("\"", "") })
+        assertEquals(listOf("Lyrics no longer say Too many requests so often"), ReleaseNotes.short("### Fixed\n- Lyrics no longer say \"Too many requests\" so often: Pod Music waits.").map { it.replace("\"", "") })
     }
 
     @Test
     fun `only GitHub, only https`() {
         HttpsUpdateNet.check("https://api.github.com/repos/x/y/releases/latest")
         HttpsUpdateNet.check("https://release-assets.githubusercontent.com/a")
-        listOf("http://github.com/a", "https://github.com.evil.example/a", "https://example.com/podium.apk").forEach { url ->
+        listOf("http://github.com/a", "https://github.com.evil.example/a", "https://example.com/pod-music.apk").forEach { url ->
             assertTrue(runCatching { HttpsUpdateNet.check(url) }.isFailure, url)
         }
     }
@@ -283,7 +283,7 @@ class UpdatesTest {
         c.checkNow(); advanceUntilIdle()
         val offer = assertIs<UpdateState.Offer>(c.state.value)
         val spec = noticeFor(offer, c, onOpenPage = {}, onPermission = {})
-        assertEquals("Podium 0.1.4 is here", spec.title)
+        assertEquals("Pod Music 0.1.4 is here", spec.title)
         assertEquals(listOf("Download and install (39 MB)", "Open on GitHub", "Ignore this version"), spec.actions.map { it.label })
         assertEquals("• Full screen", spec.lines[1])
         val githubOnly = noticeFor(offer.copy(canInstall = false), c, {}, {})
@@ -302,31 +302,31 @@ class UpdatesTest {
             [CHANGELOG.md](../../CHANGELOG.md); the decisions behind them are D-84 to D-90 in
             [decision-log.md](../decision-log.md).
 
-            **Podium 0.1.3** adds full screen, live radio, YouTube channel choice, sound effects and Apple
+            **Pod Music 0.1.3** adds full screen, live radio, YouTube channel choice, sound effects and Apple
             Lossless on every phone, with a new icon.
 
             ### What's new
             - **Full screen:** Settings ▸ Full screen hides Android's status and navigation bars. The title
               bar then shows the time, and the battery unless you turn it off.
             - **Choose your channel:** if your Google account has several YouTube channels, pick the one
-              Podium uses in Settings ▸ YouTube Music ▸ Channel.
+              Pod Music uses in Settings ▸ YouTube Music ▸ Channel.
             - **Live radio:** Online ▸ Live radio has music stations streaming live now, by genre.
             - **Sound effects:** Settings ▸ Equaliser ▸ Effect has Car stereo, 3D hall and 8D.
             - **Apple Lossless (ALAC)** plays on every phone, even ones without their own ALAC decoder.
 
             ### Changed
-            - A new app icon: the "P" of the Podium wordmark.
+            - A new app icon: the "P" of the Pod Music wordmark.
 
             ### Fixed
             - Lyrics no longer say "Too many requests" so often.
         """.trimIndent()
 
         fun release(tag: String, draft: Boolean = false, prerelease: Boolean = false, sha: String = SHA, page: String? = null): String {
-            val html = page ?: "https://github.com/GHOSTxASR/podium-music-player/releases/tag/$tag"
+            val html = page ?: "https://github.com/nkosanamahungela-dev/Pod-music/releases/tag/$tag"
             val body = kotlinx.serialization.json.JsonPrimitive(NOTES.replace("0.1.3", tag.removePrefix("v"))).toString()
-            return """{"tag_name":"$tag","name":"Podium","draft":$draft,"prerelease":$prerelease,"html_url":"$html","body":$body,
-                "assets":[{"name":"podium.apk","size":40441014,"content_type":"application/vnd.android.package-archive","digest":"sha256:$sha",
-                "browser_download_url":"https://github.com/GHOSTxASR/podium-music-player/releases/download/$tag/podium.apk"}]}"""
+            return """{"tag_name":"$tag","name":"Pod Music","draft":$draft,"prerelease":$prerelease,"html_url":"$html","body":$body,
+                "assets":[{"name":"pod-music.apk","size":40441014,"content_type":"application/vnd.android.package-archive","digest":"sha256:$sha",
+                "browser_download_url":"https://github.com/nkosanamahungela-dev/Pod-music/releases/download/$tag/pod-music.apk"}]}"""
         }
     }
 }

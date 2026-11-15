@@ -40,13 +40,13 @@ No product flavors in v1. (If the user later chooses F-Droid + Play, a `foss`/`p
 Initial development version: `versionName` `0.1.0`, `versionCode` `1`. Keep both aligned for the first Pod Music builds. Changelog per release in `CHANGELOG.md` (Keep a Changelog format).
 
 ## 5. Signing
-- **As implemented (D-69):** a PKCS12 release keystore (RSA 4096, alias `podium`, valid 10,000 days)
+- **As implemented (D-69):** a PKCS12 release keystore (RSA 4096, alias `pod-music`, valid 10,000 days)
   lives outside the repo, in `%USERPROFILE%\.podium-signing\`, with its passwords in
   `keystore.properties` (a copy sits in the project root, which git ignores). `app/build.gradle.kts`
   reads that file, or the `PODIUM_KEYSTORE_FILE`, `PODIUM_KEYSTORE_PASSWORD`, `PODIUM_KEY_ALIAS` and
   `PODIUM_KEY_PASSWORD` environment variables; without either, the release APK is built unsigned.
 - **Back the keystore up** (password manager plus an offline copy). Every release must be signed with
-  it: an APK signed with a different key can't install over an existing Podium.
+  it: an APK signed with a different key can't install over an existing Pod Music.
 - CI: keystore as base64 secret → decoded at build time; passwords as secrets; never echoed.
 - Play App Signing recommended if Play is chosen (upload key ≠ app signing key).
 
@@ -61,26 +61,26 @@ Initial development version: `versionName` `0.1.0`, `versionCode` `1`. Keep both
 |---|---|---|
 | Google Play | ✓ (legit sources only) | targetSdk 36+, Data safety form (no collection), content rating, privacy policy URL |
 | GitHub Releases + Obtainium | ✓ | Simplest; reproducible builds encouraged |
-| F-Droid / IzzyOnDroid | ✓ | Requires FOSS license for Podium and no proprietary deps (already none) |
+| F-Droid / IzzyOnDroid | ✓ | Requires FOSS license for Pod Music and no proprietary deps (already none) |
 
 ## 7a. Publishing a release (D-69)
-1. `./gradlew :app:assembleRelease` and check it: `apksigner verify --print-certs` names `CN=Podium`;
+1. `./gradlew :app:assembleRelease` and check it: `apksigner verify --print-certs` names `CN=Pod Music`;
    `aapt dump badging` shows `app.podium` and no `application-debuggable`.
 2. Publish a GitHub Release tagged `v<versionName>` with the APK attached as `pod-music.apk`, so
-   `releases/latest/download/podium.apk` (the website's and README's download link) always serves
+   `releases/latest/download/pod-music.apk` (the website's and README's download link) always serves
    the newest one. Its notes are `docs/releases/v<versionName>.md` (committed with the version
    bump), plus the APK's size and SHA-256. Never commit APKs (`.gitignore`).
-   - **Podium's own update check reads this release (D-99)**, so keep its shape:
+   - **Pod Music's own update check reads this release (D-99)**, so keep its shape:
      - the tag `v<versionName>`, and `versionCode` above the last release's;
-     - the asset named `podium.apk`, signed with the release key (Android refuses an update signed
-       otherwise, and so does Podium before handing it over);
-     - notes that open with a one-line summary in bold, `**Podium x.y.z** adds …`, then `###`
+     - the asset named `pod-music.apk`, signed with the release key (Android refuses an update signed
+       otherwise, and so does Pod Music before handing it over);
+     - notes that open with a one-line summary in bold, `**Pod Music x.y.z** adds …`, then `###`
        sections of `- **Headline:** …` bullets.
 
      The notice shows that summary and the first four headlines, What's new first. Publish as a
      draft until it's ready: drafts and pre-releases are never offered.
 3. The website is served by Vercel from `site/`. In Vercel, import
-   `GHOSTxASR/podium-music-player`, leave the Root Directory at the repository root, and deploy
+   `nkosanamahungela-dev/Pod-music`, leave the Root Directory at the repository root, and deploy
    `main`. The repository's `vercel.json` selects the no-build **Other** framework and sets
    `site/` as the output directory. Vercel then deploys `main` to production and creates previews
    for pull requests. The website's Download and View on GitHub links remain GitHub URLs; do not

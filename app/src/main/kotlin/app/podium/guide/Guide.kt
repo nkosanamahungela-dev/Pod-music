@@ -40,9 +40,9 @@ class GuideStore(private val prefs: SharedPreferences) {
  */
 enum class GuideStep(val title: String, val line: String, val demo: String) {
     WELCOME(
-        "Welcome to Podium",
+        "Welcome to Pod Music",
         "A music player you hold like the real thing. Here's how it works, in six short steps.",
-        "A model of your Podium.",
+        "A model of your Pod Music.",
     ),
     TURN(
         "Turn the Wheel",
@@ -66,13 +66,13 @@ enum class GuideStep(val title: String, val line: String, val demo: String) {
     ),
     PINCH(
         "Step outside",
-        "Pinch two fingers together on your Podium to see it as an object, out in its space.",
-        "Two fingers pinch together and the Podium moves back into a starry space.",
+        "Pinch two fingers together on your Pod Music to see it as an object, out in its space.",
+        "Two fingers pinch together and the Pod Music moves back into a starry space.",
     ),
     STICKERS(
         "Make it yours",
         "Outside, turn your pictures into stickers and stick them anywhere. Tap one to try. Help and Turn off live there too.",
-        "Beside the Podium, a page of stickers; one is tapped and flies onto the Podium.",
+        "Beside the Pod Music, a page of stickers; one is tapped and flies onto the Pod Music.",
     ),
     ;
 

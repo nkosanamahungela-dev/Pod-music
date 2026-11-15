@@ -205,8 +205,8 @@ fun BootScreen(reveal: BootReveal, onChime: () -> Unit, onFinished: () -> Unit, 
         fade = { reveal.fade },
         modifier = modifier
             .fillMaxSize()
-            .semantics { contentDescription = "Starting Podium" }
-            // Nothing beneath is touched while Podium starts.
+            .semantics { contentDescription = "Starting Pod Music" }
+            // Nothing beneath is touched while Pod Music starts.
             .pointerInput(Unit) {
                 awaitEachGesture {
                     awaitFirstDown(requireUnconsumed = false).consume()
@@ -252,7 +252,7 @@ internal fun BootMark(time: () -> Float, modifier: Modifier = Modifier, fade: ()
 internal class MarkArt private constructor(
     val width: Float,
     val height: Float,
-    /** "PODIUM", the P alone, and the O's counter, in the wordmark's own coordinates (baseline at 0). */
+    /** "POD MUSIC", the P alone, and the O's counter, in the wordmark's own coordinates (baseline at 0). */
     val word: Path,
     val p: Path,
     val counter: Path,
@@ -279,7 +279,7 @@ internal class MarkArt private constructor(
                 textSize = markWidth / WordmarkEms
                 letterSpacing = -0.01f
             }
-            val word = android.graphics.Path().also { paint.getTextPath("PODIUM", 0, 6, 0f, 0f, it) }
+            val word = android.graphics.Path().also { paint.getTextPath("POD MUSIC", 0, 9, 0f, 0f, it) }
             val p = android.graphics.Path().also { paint.getTextPath("P", 0, 1, 0f, 0f, it) }
             val oAt = paint.measureText("PO") - paint.measureText("O")
             val o = android.graphics.Path().also { paint.getTextPath("O", 0, 1, oAt, 0f, it) }
@@ -676,8 +676,8 @@ private const val REDUCED_HOLD_MS = 900L
 /** From the top of the line to the bottom: white where the light falls, then a soft silver. */
 private val SilverStops = arrayOf(0.18f to Color(0xFFEFEFF2), 0.52f to Color(0xFFD3D3D9), 0.84f to Color(0xFFA3A3AD))
 
-/** "PODIUM" is this many ems wide at the wordmark's letter spacing. */
-private const val WordmarkEms = 5.31f
+/** "POD MUSIC" is this many ems wide at the wordmark's letter spacing. */
+private const val WordmarkEms = 7.25f
 
 /**
  * One tile of the wordmark's flakes, from the body's seeded field (so it is the same every launch):
