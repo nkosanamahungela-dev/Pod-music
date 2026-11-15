@@ -279,7 +279,7 @@ internal class MarkArt private constructor(
                 textSize = markWidth / WordmarkEms
                 letterSpacing = -0.01f
             }
-            val word = android.graphics.Path().also { paint.getTextPath("POD MUSIC", 0, 6, 0f, 0f, it) }
+            val word = android.graphics.Path().also { paint.getTextPath("POD MUSIC", 0, 9, 0f, 0f, it) }
             val p = android.graphics.Path().also { paint.getTextPath("P", 0, 1, 0f, 0f, it) }
             val oAt = paint.measureText("PO") - paint.measureText("O")
             val o = android.graphics.Path().also { paint.getTextPath("O", 0, 1, oAt, 0f, it) }
