@@ -8,7 +8,7 @@ import kotlinx.serialization.json.booleanOrNull
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.longOrNull
 
-/** A version as Podium names its releases: "0.1.4", tagged `v0.1.4` (D-99). */
+/** A version as Pod Music names its releases: "0.1.4", tagged `v0.1.4` (D-99). */
 internal data class Version(val parts: List<Int>, val text: String) : Comparable<Version> {
     override fun compareTo(other: Version): Int {
         for (i in 0 until maxOf(parts.size, other.parts.size)) {
@@ -54,7 +54,7 @@ internal object Releases {
         val version = Version.of(tag) ?: return null
         val page = o.str("html_url")?.takeIf { it.startsWith("https://github.com/") } ?: return null
         val assets = (o["assets"] as? JsonArray).orEmpty().mapNotNull { it as? JsonObject }
-        // The release's app is `podium.apk` (deployment.md §7); any one APK otherwise.
+        // The release app is `pod-music.apk`; any one APK otherwise.
         val asset = assets.firstOrNull { it.str("name") == APK_NAME } ?: assets.firstOrNull { it.str("name")?.endsWith(".apk") == true }
         val apk = asset?.let { a ->
             val url = a.str("browser_download_url")?.takeIf { it.startsWith("https://github.com/") } ?: return@let null
@@ -68,7 +68,7 @@ internal object Releases {
         return Release(version, tag, o.str("body").orEmpty(), page, apk)
     }
 
-    const val APK_NAME = "podium.apk"
+    const val APK_NAME = "pod-music.apk"
 
     private fun JsonObject.str(key: String): String? = (this[key] as? JsonPrimitive)?.contentOrNull
     private fun JsonObject.bool(key: String): Boolean? = (this[key] as? JsonPrimitive)?.booleanOrNull
