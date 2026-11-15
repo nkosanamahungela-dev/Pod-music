@@ -76,13 +76,13 @@ internal object Releases {
 
 /**
  * A release's notes in short (D-99), for the update notice: the one-line summary the notes open with
- * (`**Podium 0.1.4** adds …`), then the headline of each change, What's new first, at most [max].
+ * (`**Pod Music 0.1.4** adds …`), then the headline of each change, What's new first, at most [max].
  * Markdown is taken out (bold, code, links); nothing is shown that the notes don't say.
  */
 internal object ReleaseNotes {
     fun short(notes: String, max: Int = 4): List<String> {
         val paragraphs = notes.replace("\r", "").split(Regex("\n\\s*\n")).map { p -> p.lines().joinToString(" ") { it.trim() }.trim() }
-        val summary = paragraphs.firstOrNull { it.startsWith("**Podium") }?.let(::plain)?.takeIf { it.isNotBlank() }
+        val summary = paragraphs.firstOrNull { it.startsWith("**Pod Music") }?.let(::plain)?.takeIf { it.isNotBlank() }
         val sections = LinkedHashMap<String, MutableList<String>>()
         var section = ""
         var bullet: StringBuilder? = null
