@@ -18,7 +18,7 @@ android {
     namespace = "app.podium"
     defaultConfig {
         // Provisional: the product name is pending trademark clearance (docs/repository-audit.md §5).
-        applicationId = "app.podium"
+        applicationId = "app.podmusic"
         // A device test of the updater (D-99) builds a "newer" copy: -Ppodium.versionCode=7 -Ppodium.versionName=0.1.5.1
         versionCode = providers.gradleProperty("podium.versionCode").orNull?.toInt() ?: 7
         versionName = providers.gradleProperty("podium.versionName").orNull ?: "0.1.5.1"
@@ -57,7 +57,7 @@ android {
             // fresh open started cold and stuttered until it warmed up. Not debuggable, ART compiles
             // it (the libraries' baseline profiles through profileinstaller, then the phone's own
             // profile) and the first transition is as smooth as the hundredth. Debug commands, the
-            // test tones and the package (app.podium.debug, the listener's data) are unchanged.
+            // test tones and the package (app.podmusic.debug, the listener's data) are unchanged.
             // For a debugger: ./gradlew installDebug -Ppodium.debuggable=true
             isDebuggable = providers.gradleProperty("podium.debuggable").orNull == "true"
             // R8 on a debug build, so its debug commands can prove a release's paths under

@@ -345,7 +345,7 @@ private val BackStackSaver = listSaver<SnapshotStateList<Dest>, String>(
 /** The header title for a place on the paper. */
 @Composable
 private fun titleOf(dest: Dest, graph: AppGraph): String = when (dest) {
-    Dest.Home -> "Podium"
+    Dest.Home -> "Pod Music"
     Dest.Music -> "Music"
     Dest.CoverFlow -> "Cover Flow"
     Dest.Albums -> "Albums"

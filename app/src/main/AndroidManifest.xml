@@ -6,11 +6,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <!-- Podium's own updates (D-99): a release downloaded from GitHub, handed to Android's installer
+    <!-- Pod Music updates (D-99): a release downloaded from GitHub, handed to Android's installer
          (which asks the listener to confirm) once it's checked to be this app, signed by the same key. -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
-    <!-- Remote playback (YOUTUBE_MUSIC_ARCHITECTURE §8): Podium needs to see whether the app that
+    <!-- Remote playback (YOUTUBE_MUSIC_ARCHITECTURE §8): Pod Music needs to see whether the app that
          plays online songs is installed, and to open it on a song. -->
     <queries>
         <package android:name="com.google.android.apps.youtube.music" />
@@ -22,11 +22,11 @@
         android:usesCleartextTraffic="false"
         android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Podium"
+        android:label="Pod Music"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Podium">
+        android:theme="@style/Theme.PodMusic">
 
-        <!-- Portrait only (D-108): Podium is a device you hold upright in one hand, and it has no
+        <!-- Portrait only (D-108): Pod Music is a device you hold upright in one hand, and it has no
              landscape arrangement to turn into. -->
         <activity
             android:name=".MainActivity"
@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
 
-        <!-- Signing in on the online service's own page (§6); never started from outside Podium.
+        <!-- Signing in on the online service's own page (§6); never started from outside Pod Music.
              Turning, folding or resizing the phone keeps the page (and anything typed into it). -->
         <activity
             android:name=".WebSignInActivity"
