@@ -641,22 +641,22 @@ fun AboutPodMusicScreen() {
         androidx.compose.foundation.text.BasicText(
             "Pod Music",
             style = androidx.compose.ui.text.TextStyle(
-                color = PodiumTheme.colors.foreground,
+                color = PodiumTheme.colors.labelPrimary,
                 fontSize = androidx.compose.ui.unit.TextUnit(28f, androidx.compose.ui.unit.TextUnitType.Sp),
             ),
         )
         androidx.compose.foundation.text.BasicText(
             "About & credits",
-            style = androidx.compose.ui.text.TextStyle(color = PodiumTheme.colors.muted),
+            style = androidx.compose.ui.text.TextStyle(color = PodiumTheme.colors.labelSecondary),
         )
         androidx.compose.foundation.text.BasicText(
             "Lead Developer",
-            style = androidx.compose.ui.text.TextStyle(color = PodiumTheme.colors.muted),
+            style = androidx.compose.ui.text.TextStyle(color = PodiumTheme.colors.labelSecondary),
         )
         androidx.compose.foundation.text.BasicText(
             "Smelokuhle Mahungela",
             style = androidx.compose.ui.text.TextStyle(
-                color = PodiumTheme.colors.foreground,
+                color = PodiumTheme.colors.labelPrimary,
                 fontSize = androidx.compose.ui.unit.TextUnit(20f, androidx.compose.ui.unit.TextUnitType.Sp),
             ),
         )
@@ -689,16 +689,16 @@ fun AboutPodMusicScreen() {
             Spacer(Modifier.width(10.dp))
             androidx.compose.foundation.text.BasicText(
                 "YouTube Music",
-                style = androidx.compose.ui.text.TextStyle(color = PodiumTheme.colors.foreground),
+                style = androidx.compose.ui.text.TextStyle(color = PodiumTheme.colors.labelPrimary),
             )
         }
         androidx.compose.foundation.text.BasicText(
             "Sponsored by YouTube Music",
-            style = androidx.compose.ui.text.TextStyle(color = PodiumTheme.colors.muted),
+            style = androidx.compose.ui.text.TextStyle(color = PodiumTheme.colors.labelSecondary),
         )
         androidx.compose.foundation.text.BasicText(
             "Pod Music is an independent project and is not affiliated with or endorsed by YouTube or Google.",
-            style = androidx.compose.ui.text.TextStyle(color = PodiumTheme.colors.muted),
+            style = androidx.compose.ui.text.TextStyle(color = PodiumTheme.colors.labelSecondary),
         )
     }
 }
