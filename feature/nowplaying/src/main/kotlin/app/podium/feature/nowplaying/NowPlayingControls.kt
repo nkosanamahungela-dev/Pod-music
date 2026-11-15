@@ -409,7 +409,7 @@ private fun TransportKey(
             },
         contentAlignment = Alignment.Center,
     ) {
-        Symbol(symbol, if (enabled) colors.labelPrimary else colors.labelTertiary, size = 26.dp, weight = 700, filled = true)
+        Symbol(symbol, if (enabled) colors.labelPrimary else colors.labelTertiary, size = 25.dp, weight = 450, filled = false)
     }
 }
 

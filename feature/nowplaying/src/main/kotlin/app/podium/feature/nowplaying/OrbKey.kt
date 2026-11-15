@@ -1,6 +1,7 @@
 package app.podium.feature.nowplaying
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.runtime.Composable
@@ -8,6 +9,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.withFrameNanos
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.semantics.Role
@@ -16,6 +18,8 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import app.podium.core.designsystem.component.pressFeedback
+import app.podium.core.designsystem.symbol.PodiumSymbol
+import app.podium.core.designsystem.symbol.Symbol
 import app.podium.core.designsystem.orb.LiveOrb
 import app.podium.core.designsystem.orb.OrbFace
 import app.podium.core.designsystem.orb.OrbFrame
@@ -90,25 +94,35 @@ internal fun OrbKey(p: NowPlayingParts, diameter: Dp, modifier: Modifier = Modif
         }
     }
 
-    LiveOrb(
-        diameter = diameter,
-        settled = !playing,
-        face = face,
-        pressed = { pressed },
-        modifier = modifier
-            .pressFeedback(0.96f)
-            .clickable(interactionSource = interaction, indication = null) {
-                // Touching the orb keeps the tray's own clock running (D-108).
-                p.touched()
-                // Starting is a firm click, stopping a soft fall (D-105).
-                haptics.playPause(playing = !playing)
-                controller.togglePlayPause()
-            }
-            .semantics {
-                role = Role.Button
-                contentDescription = if (playing) "Pause" else "Play"
-            },
-    )
+    Box(contentAlignment = Alignment.Center) {
+        LiveOrb(
+            diameter = diameter,
+            settled = !playing,
+            face = face,
+            pressed = { pressed },
+            modifier = modifier
+                .pressFeedback(0.96f)
+                .clickable(interactionSource = interaction, indication = null) {
+                    // Touching the orb keeps the tray's own clock running (D-108).
+                    p.touched()
+                    // Starting is a firm click, stopping a soft fall (D-105).
+                    haptics.playPause(playing = !playing)
+                    controller.togglePlayPause()
+                }
+                .semantics {
+                    role = Role.Button
+                    contentDescription = if (playing) "Pause" else "Play"
+                },
+        )
+        // A quiet SF-style transport glyph makes the orb's action immediately recognisable.
+        Symbol(
+            if (playing) PodiumSymbol.Pause else PodiumSymbol.Play,
+            color = PodiumTheme.colors.labelPrimary,
+            size = diameter * 0.28f,
+            weight = 400,
+            filled = false,
+        )
+    }
 }
 
 /**
