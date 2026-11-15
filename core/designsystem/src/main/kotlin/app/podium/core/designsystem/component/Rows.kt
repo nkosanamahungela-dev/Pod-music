@@ -91,6 +91,30 @@ fun illuminated(style: TextStyle, focused: Boolean): TextStyle {
     } else style
 }
 
+/** A familiar symbol for common destinations and actions, including rows that omit an explicit glyph. */
+private fun menuSymbol(label: String): PodiumSymbol? = when (label.trim().lowercase()) {
+    "music", "library" -> PodiumSymbol.Library
+    "online" -> PodiumSymbol.Headphones
+    "shuffle songs", "shuffle" -> PodiumSymbol.Shuffle
+    "now playing", "play" -> PodiumSymbol.Play
+    "settings" -> PodiumSymbol.Settings
+    "cover flow", "albums", "album" -> PodiumSymbol.Album
+    "artists", "artist" -> PodiumSymbol.Person
+    "songs", "add songs", "no songs yet" -> PodiumSymbol.Note
+    "favorites", "favourites" -> PodiumSymbol.Favorite
+    "playlists", "new playlist", "add to playlist" -> PodiumSymbol.PlaylistPlay
+    "rename" -> PodiumSymbol.TextFields
+    "delete playlist", "remove from playlist", "close" -> PodiumSymbol.Close
+    "search" -> PodiumSymbol.Search
+    "equalizer" -> PodiumSymbol.Equalizer
+    "lyrics" -> PodiumSymbol.Lyrics
+    "up next", "queue" -> PodiumSymbol.Queue
+    "sleep timer" -> PodiumSymbol.Power
+    "appearance", "theme", "colors", "colours" -> PodiumSymbol.Palette
+    "lock", "permissions" -> PodiumSymbol.Lock
+    else -> null
+}
+
 /** A menu row (design-system.md §6.3): label, optional value, chevron. */
 @Composable
 fun MenuRow(
@@ -108,6 +132,7 @@ fun MenuRow(
 ) {
     val colors = PodiumTheme.colors
     val type = PodiumTheme.type
+    val icon = leading ?: menuSymbol(label)
     val primary = if (enabled) primaryText(focused, colors.labelPrimary) else colors.labelTertiary
     val secondary = secondaryText(focused, colors.labelSecondary)
     Row(
@@ -117,8 +142,8 @@ fun MenuRow(
             .padding(horizontal = LocalRowPadding.current),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        if (leading != null) {
-            Symbol(leading, secondary, size = 20.dp, weight = if (focused) 600 else 500)
+        if (icon != null) {
+            Symbol(icon, secondary, size = 20.dp, weight = if (focused) 600 else 500)
             Spacer(Modifier.width(Spacing.m))
         } else if (leadingContent != null) {
             leadingContent()
