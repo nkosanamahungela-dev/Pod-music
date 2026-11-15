@@ -7,8 +7,9 @@
 <p align="center"><b>The wheel is back.</b> An Android music player that lives inside one beautifully engineered device.</p>
 
 <p align="center">
-  <a href="LICENSE"><img alt="License: GPL-3.0" src="https://img.shields.io/badge/License-GPL--3.0-d9c7ae?style=for-the-badge&labelColor=0e0e10" /></a>
-  <img alt="Android 10 or later" src="https://img.shields.io/badge/Android-10%2B-d9c7ae?style=for-the-badge&labelColor=0e0e10" />
+  <img alt="Downloads" src="https://img.shields.io/github/downloads/nkosanamahungela-dev/Pod-music/total?label=Downloads&logo=github&logoColor=white&color=2563eb&style=for-the-badge" />
+  <a href="https://github.com/nkosanamahungela-dev/Pod-music/releases"><img alt="Latest release" src="https://img.shields.io/github/v/release/nkosanamahungela-dev/Pod-music?label=Latest%20release&logo=github&logoColor=white&color=8b5cf6&style=for-the-badge" /></a>
+  <img alt="Android 10 or later" src="https://img.shields.io/badge/Android-10%2B-3DDC84?logo=android&logoColor=white&style=for-the-badge" />
 </p>
 
 <p align="center"><a href="site/">Website</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://github.com/nkosanamahungela-dev/Pod-music/releases">Releases</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="docs/README.md">Documentation</a></p>
