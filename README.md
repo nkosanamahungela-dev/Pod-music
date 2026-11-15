@@ -1,5 +1,8 @@
+<p align="center">
+  <img src="docs/media/pod-music-banner.svg" alt="Pod Music" width="720" />
+</p>
+
 <h1 align="center">Pod Music</h1>
-<p align="center"><img src="docs/media/pod-music-mark.png" alt="Pod Music mark" width="220" /></p> 
 
 <p align="center"><b>The wheel is back.</b> An Android music player that lives inside one beautifully engineered device.</p>
 
@@ -69,6 +72,5 @@ Kyant's Backdrop and Shapes for the Glass theme (Apache-2.0), a Kotlin port of A
 [third_party/](third_party/). Pod Music is an independent project based on the upstream Podium codebase; it is not affiliated with any music
 service or hardware maker; online services are used under their own terms.
 
-<p align="center">
-  <img src="docs/media/pod-music-banner.svg" alt="Pod Music" width="720" />
-</p>
+**Developer**
+Made by **Smelokuhle Mahungela**
