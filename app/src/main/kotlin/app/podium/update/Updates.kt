@@ -75,7 +75,7 @@ internal class PrefsUpdateStore(context: Context) : UpdateStore {
  * notice with its notes in short: download and install it right there, open its page on GitHub, or
  * ignore that version. Dismissed, the notice comes back after [REMIND_AFTER_MS].
  *
- * Installing: the release's `podium.apk` is downloaded into the app's cache, checked against the
+ * Installing: the release's `pod-music.apk` is downloaded into the app's cache, checked against the
  * SHA-256 GitHub gives for it, then checked to be this app, newer, signed by the same key, and only
  * then handed to Android's installer, which asks the listener to confirm.
  */
