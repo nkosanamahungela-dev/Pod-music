@@ -68,3 +68,7 @@ Kyant's Backdrop and Shapes for the Glass theme (Apache-2.0), a Kotlin port of A
 (Apache-2.0), and typefaces under the SIL Open Font License. Notices and license texts are in
 [third_party/](third_party/). Pod Music is an independent project based on the upstream Podium codebase; it is not affiliated with any music
 service or hardware maker; online services are used under their own terms.
+
+<p align="center">
+  <img src="docs/media/pod-music-banner.svg" alt="Pod Music" width="720" />
+</p>
