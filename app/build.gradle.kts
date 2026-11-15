@@ -5,21 +5,20 @@ plugins {
     alias(libs.plugins.podium.android.compose)
 }
 
-// Release signing (D-69): the key and its passwords live outside git, in keystore.properties
-// (ignored) next to this project, or in PODIUM_KEYSTORE_* environment variables. Without either,
-// the release APK is built unsigned.
+// Signing keys and passwords stay outside git in ignored keystore.properties
+// or GitHub Actions environment variables.
 val signing = Properties().apply {
     rootProject.file("keystore.properties").takeIf { it.isFile }?.inputStream()?.use { load(it) }
 }
 fun secret(key: String, env: String): String? = signing.getProperty(key) ?: System.getenv(env)
+
+val debugStore = secret("debugStoreFile", "PODIUM_DEBUG_KEYSTORE_FILE")
 val releaseStore = secret("storeFile", "PODIUM_KEYSTORE_FILE")
 
 android {
-    // Internal Kotlin/R namespace; the installed Android package ID is app.podmusic.
     namespace = "app.podium"
     defaultConfig {
         applicationId = "app.podmusic"
-        // Initial development release.
         versionCode = 1
         versionName = "0.1.0"
     }
@@ -27,15 +26,21 @@ android {
         buildConfig = true
     }
     lint {
-        // MainActivity and WebSignInActivity are ComponentActivity, whose result APIs are correct;
-        // the check is about FragmentActivity before fragment 1.3, which arrives only transitively.
         disable += "InvalidFragmentVersionForActivityResult"
     }
-    // The cutout model is memory-mapped straight from the APK.
     androidResources {
         noCompress += "tflite"
     }
     signingConfigs {
+        // Keep AGP's normal debug signing for local builds when no persistent key is configured.
+        if (debugStore != null) {
+            getByName("debug") {
+                storeFile = file(debugStore)
+                storePassword = secret("debugStorePassword", "PODIUM_DEBUG_KEYSTORE_PASSWORD")
+                keyAlias = secret("debugKeyAlias", "PODIUM_DEBUG_KEY_ALIAS")
+                keyPassword = secret("debugKeyPassword", "PODIUM_DEBUG_KEY_PASSWORD")
+            }
+        }
         if (releaseStore != null) {
             create("release") {
                 storeFile = file(releaseStore)
@@ -45,23 +50,14 @@ android {
             }
         }
     }
-    // A build installed beside the phone's own (D-98): -Ppodium.applicationIdSuffix=.walktest gives
-    // another package, so a test needs no uninstall (which would wipe the listener's data) when the
-    // installed app was signed with another key.
     val sideBySide = providers.gradleProperty("podium.applicationIdSuffix").orNull
     buildTypes {
         debug {
             applicationIdSuffix = sideBySide ?: ".debug"
-            // This is the build that lives on the phone (D-65). A debuggable app is never compiled
-            // ahead of time and loses its JIT-compiled code whenever its process ends, so every
-            // fresh open started cold and stuttered until it warmed up. Not debuggable, ART compiles
-            // it (the libraries' baseline profiles through profileinstaller, then the phone's own
-            // profile) and the first transition is as smooth as the hundredth. Debug commands, the
-            // test tones and the package (app.podmusic.debug, the listener's data) are unchanged.
-            // For a debugger: ./gradlew installDebug -Ppodium.debuggable=true
+            if (debugStore != null) {
+                signingConfig = signingConfigs.getByName("debug")
+            }
             isDebuggable = providers.gradleProperty("podium.debuggable").orNull == "true"
-            // R8 on a debug build, so its debug commands can prove a release's paths under
-            // minification (D-99): -Ppodium.minifyDebug=true
             if (providers.gradleProperty("podium.minifyDebug").orNull == "true") {
                 isMinifyEnabled = true
                 proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -92,15 +88,12 @@ dependencies {
     implementation(project(":feature:library"))
     implementation(project(":feature:online"))
     implementation(project(":sources:youtubemusic"))
-    // Custom sources (D-91): addons the listener adds for their streams.
     implementation(project(":sources:addon"))
     implementation(libs.kotlinx.serialization.json)
-    // The online source's backup apps run YouTube's player script in a sandbox (D-98).
     implementation(libs.androidx.javascriptengine)
     implementation(libs.kotlinx.coroutines.guava)
     implementation(project(":feature:nowplaying"))
     implementation(project(":feature:settings"))
-    // Deterministic generated test tones: debug builds only, never shipped.
     debugImplementation(project(":sources:test"))
 
     implementation(libs.androidx.core.ktx)
@@ -108,10 +101,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)
-    // Sticker cutout on the phone (D-55): LiteRT runs the bundled magic-touch model.
     implementation(libs.litert)
 
-    // The library repository over a real (in-memory) database, on the development machine.
     testImplementation(libs.junit)
     testImplementation(libs.kotlin.test)
     testImplementation(libs.kotlinx.coroutines.test)
