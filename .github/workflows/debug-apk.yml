@@ -2,6 +2,7 @@ name: Pod Music debug APK
 on:
   push:
     branches:
+      - main
       - rename/pod-music-branding
       - fix/pod-music-update-feed-and-branding
   workflow_dispatch:
