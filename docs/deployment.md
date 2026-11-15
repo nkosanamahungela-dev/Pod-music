@@ -34,10 +34,10 @@ adb shell cmd package compile -m speed -f app.podium.debug
 ```
 Right after an install there's no profile yet, so `-m speed-profile` only verifies the code (`dumpsys package dexopt` shows `status=verify`). `-m speed` compiles all of it (`status=speed`). After the app has run for a while, `-m speed-profile` compiles what was actually used, at a smaller size.
 
-No product flavors in v1. (If the user later chooses F-Droid + Play, a `foss`/`play` split would only differ in nothing, since Podium has no proprietary SDKs — a deliberate advantage.)
+No product flavors in v1. (If the user later chooses F-Droid + Play, a `foss`/`play` split would only differ in nothing, since Pod Music has no proprietary SDKs — a deliberate advantage.)
 
 ## 4. Versioning
-SemVer `versionName` (`0.x` until v1.0); `versionCode` = `major*1_000_000 + minor*1_000 + patch` (monotonic), CI-overridable. Changelog per release in `CHANGELOG.md` (Keep a Changelog format).
+Initial development version: `versionName` `0.1.0`, `versionCode` `1`. Keep both aligned for the first Pod Music builds. Changelog per release in `CHANGELOG.md` (Keep a Changelog format).
 
 ## 5. Signing
 - **As implemented (D-69):** a PKCS12 release keystore (RSA 4096, alias `podium`, valid 10,000 days)
@@ -66,7 +66,7 @@ SemVer `versionName` (`0.x` until v1.0); `versionCode` = `major*1_000_000 + mino
 ## 7a. Publishing a release (D-69)
 1. `./gradlew :app:assembleRelease` and check it: `apksigner verify --print-certs` names `CN=Podium`;
    `aapt dump badging` shows `app.podium` and no `application-debuggable`.
-2. Publish a GitHub Release tagged `v<versionName>` with the APK attached as `podium.apk`, so
+2. Publish a GitHub Release tagged `v<versionName>` with the APK attached as `pod-music.apk`, so
    `releases/latest/download/podium.apk` (the website's and README's download link) always serves
    the newest one. Its notes are `docs/releases/v<versionName>.md` (committed with the version
    bump), plus the APK's size and SHA-256. Never commit APKs (`.gitignore`).

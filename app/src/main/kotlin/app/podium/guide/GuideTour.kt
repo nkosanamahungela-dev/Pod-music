@@ -62,9 +62,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 
 /**
- * The tour (D-57), its own screen over everything: a model of the Podium on a dark stage, the
+ * The tour (D-57), its own screen over everything: a model of the Pod Music player on a dark stage, the
  * camera closing in on the part each checkpoint is about, a finger showing how, and the words
- * beneath. The real Podium isn't used to demonstrate anything; the model can be tried by hand.
+ * beneath. The real player isn't used to demonstrate anything; the model can be tried by hand.
  */
 @Composable
 fun GuideTour(guide: GuideState, palette: ShellPalette) {
@@ -140,7 +140,7 @@ private fun TourScreen(step: GuideStep, guide: GuideState, palette: ShellPalette
             } else {
                 Row(horizontalArrangement = Arrangement.spacedBy(Spacing.s)) {
                     if (step.ordinal > 1) PanelButton("Back", guide::back, Modifier.weight(1f), emphasized = false)
-                    PanelButton(if (step == GuideStep.entries.last()) "Start using Podium" else "Next", guide::next, Modifier.weight(1.6f))
+                    PanelButton(if (step == GuideStep.entries.last()) "Start using Pod Music" else "Next", guide::next, Modifier.weight(1.6f))
                 }
             }
         }

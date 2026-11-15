@@ -13,6 +13,9 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
@@ -41,6 +45,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.graphics.TileMode
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asComposePath
 import androidx.compose.ui.graphics.asImageBitmap
@@ -54,6 +59,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
@@ -218,20 +225,26 @@ fun BootScreen(reveal: BootReveal, onChime: () -> Unit, onFinished: () -> Unit, 
  */
 @Composable
 internal fun BootMark(time: () -> Float, modifier: Modifier = Modifier, fade: () -> Float = { -1f }) {
-    val context = LocalContext.current
-    val density = LocalDensity.current
-    val typeface = remember(context) { runCatching { context.resources.getFont(R.font.archivo_wordmark) }.getOrNull() ?: Typeface.DEFAULT_BOLD }
-    val flakes = remember(density.density) { wordmarkFlakes(density.density) }
-    var art by remember { mutableStateOf<MarkArt?>(null) }
-    Canvas(modifier) {
-        val current = art?.takeIf { it.width == size.width && it.height == size.height } ?: MarkArt.build(typeface, size.width, size.height, flakes).also { art = it }
-        val f = fade()
-        if (f >= 0f) {
-            drawRect(Color.Black, alpha = 1f - f)
-            drawFlatMark(current, alpha = 1f - f)
-            return@Canvas
-        }
-        drawBootFrame(time(), current)
+    val progress = time()
+    val reducedFade = fade()
+    Box(
+        modifier = modifier.background(Color.Black),
+        contentAlignment = Alignment.Center,
+    ) {
+        Image(
+            painter = painterResource(R.drawable.pod_music_mark),
+            contentDescription = "Pod Music",
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer {
+                    val settle = (progress / BootTimeline.SETTLE_END).coerceIn(0f, 1f)
+                    alpha = if (reducedFade >= 0f) 1f - reducedFade else 0.78f + 0.22f * settle
+                    val scale = 0.94f + 0.06f * settle
+                    scaleX = scale
+                    scaleY = scale
+                },
+        )
     }
 }
 

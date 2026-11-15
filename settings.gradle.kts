@@ -16,7 +16,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "podium"
+rootProject.name = "Pod Music"
 
 // Pure Kotlin domain modules (ADR-012): no Android imports.
 include(":core:model")
