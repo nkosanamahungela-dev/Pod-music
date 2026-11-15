@@ -539,7 +539,7 @@ internal fun DrawScope.drawStage(geo: StageGeometry, camera: Camera, ink: ModelI
         val target = STICK_AT.getValue(fly.index)
         val to = geo.toScreen(MODEL_CENTER + (target - MODEL_CENTER) * k)
         val t = ease(fly.t)
-        // An arc up and over onto the Podium.
+        // An arc up and over onto the Pod Music player.
         val lift = Offset(0f, -90.dp.toPx())
         val mid = lerp(from, to, 0.5f) + lift
         val p = lerp(lerp(from, mid, t), lerp(mid, to, t), t)
@@ -588,7 +588,7 @@ private fun DrawScope.drawScreen(labels: ModelLabels, scene: Scene) {
     val home = -scene.page * SCREEN.width
     val music = (1f - scene.page) * SCREEN.width
     fun centred(t: TextLayoutResult, x: Float, y: Float, color: Color) = drawText(t, color, Offset(x - t.size.width / 2f, y - t.size.height / 2f))
-    centred(labels.podium, 100f + home, 28f, Color.White)
+    centred(labels.podMusic, 100f + home, 28f, Color.White)
     centred(labels.musicTitle, 100f + music, 28f, Color.White)
     drawLine(Color.White.copy(alpha = 0.08f), Offset(SCREEN.left + 10f, 40f), Offset(SCREEN.right - 10f, 40f), 0.8f)
     fun rows(texts: List<TextLayoutResult>, dx: Float, lit: Float) {
