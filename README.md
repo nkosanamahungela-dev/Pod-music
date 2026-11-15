@@ -1,4 +1,5 @@
 <h1 align="center">Pod Music</h1>
+<p align="center"><img src="docs/media/pod-music-mark.png" alt="Pod Music mark" width="220" /></p> 
 
 <p align="center"><b>The wheel is back.</b> An Android music player that lives inside one beautifully engineered device.</p>
 
@@ -14,10 +15,6 @@
 Every music app looks the same. Pod Music brings back the wheel: one wheel to move, one button to
 choose, and everything about the device yours to change. Your own music comes first, an online
 catalogue is built in, and there are no ads and no analytics.
-
-<p align="center"><img src="docs/media/screens.jpg" alt="Pod Music in Silver, Carbon, Burgundy with stickers, Bone and Glacier blue" width="100%" /></p>
-
-<p align="center"><img src="docs/media/pod-music-mark.png" alt="Pod Music mark" width="220" /></p>
 
 ## Releases
 
