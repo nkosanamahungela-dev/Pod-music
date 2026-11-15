@@ -144,6 +144,11 @@ internal class UpdateCenter(
             } catch (e: CancellationException) {
                 throw e
             } catch (e: HttpError) {
+                if (e.code == 404) {
+                    // GitHub returns 404 for releases/latest when this public repo has no published release yet.
+                    _state.value = UpdateState.UpToDate(current)
+                    return@launch
+                }
                 fail(null, if (e.code == 403 || e.code == 429) UpdateProblem.RATE_LIMITED else UpdateProblem.NO_CONNECTION)
                 return@launch
             } catch (e: IOException) {

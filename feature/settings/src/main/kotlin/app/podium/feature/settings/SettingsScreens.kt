@@ -237,7 +237,7 @@ fun SettingsScreen(
             SettingsRow.SoftwareUpdate -> softwareUpdate?.let { updates ->
                 overlay.show(
                     app.podium.core.designsystem.component.MenuSpec(
-                        "Podium ${updates.version}",
+                        "Pod Music ${updates.version}",
                         listOfNotNull(
                             app.podium.core.designsystem.component.MenuAction("Check now") { updates.checkNow() },
                             updates.automatic?.let {
@@ -269,7 +269,7 @@ fun SettingsScreen(
         when (row) {
             SettingsRow.About -> MenuRow("About Pod Music", focused)
             SettingsRow.Appearance -> MenuRow("Appearance", focused, value = appearance.display.label)
-            SettingsRow.PodiumSpace -> MenuRow("Podium body", focused, value = "Stickers, help, turn off")
+            SettingsRow.PodiumSpace -> MenuRow("Pod Music body", focused, value = "Stickers, help, turn off")
             // Typing: the Wheel becomes Podium's keyboard, or the phone's keyboard appears (D-45).
             // Full screen (D-85): the phone's bars hidden; the title bar shows the time and the battery.
             SettingsRow.FullScreen -> MenuRow("Full screen", focused, value = if (immersive) "On" else "Off", showChevron = false)
@@ -295,7 +295,7 @@ fun SettingsScreen(
                 value = if (hideNowPlayingTray) "Hides when idle" else "Always shown",
                 showChevron = false,
             )
-            SettingsRow.Keyboard -> MenuRow("Keyboard", focused, value = if (podiumKeyboard) "Podium" else "Phone", showChevron = false)
+            SettingsRow.Keyboard -> MenuRow("Keyboard", focused, value = if (podiumKeyboard) "Pod Music" else "Phone", showChevron = false)
             SettingsRow.MusicFolders -> MenuRow(
                 "Music folders",
                 focused,

@@ -49,8 +49,8 @@ internal fun noticeFor(
     return when (state) {
         UpdateState.Idle, UpdateState.Checking -> NoticeSpec("Checking for updates", listOf("Asking GitHub for the newest Pod Music."))
         is UpdateState.UpToDate -> NoticeSpec(
-            "Pod Music is up to date",
-            listOf("You have the newest version, ${state.current}."),
+            "No update available yet",
+            listOf("Pod Music ${state.current} is already up to date."),
             listOf(MenuAction("Done") { updates.dismiss() }),
         )
         is UpdateState.Offer -> NoticeSpec(

@@ -157,9 +157,18 @@ private fun Checkpoints(step: GuideStep, passed: Set<GuideStep>, modifier: Modif
         verticalAlignment = Alignment.CenterVertically,
     ) {
         for (s in GuideStep.entries.drop(1)) {
+            val stepColor = when (s) {
+                GuideStep.TURN -> Color(0xFF70BFFF)      // sky blue
+                GuideStep.CENTER -> Color(0xFF75DDBB)    // mint
+                GuideStep.MENU -> Color(0xFFB7A0F5)      // lavender
+                GuideStep.PLAY -> Color(0xFFFF987F)      // coral
+                GuideStep.PINCH -> Color(0xFFFFC96B)     // amber
+                GuideStep.STICKERS -> Color(0xFFF08BC1)  // pink
+                GuideStep.WELCOME -> ink.labelPrimary
+            }
             val color = when {
-                s in passed || s.ordinal < step.ordinal -> ink.labelPrimary
-                s == step -> ink.labelPrimary.copy(alpha = 0.5f)
+                s in passed || s.ordinal < step.ordinal -> stepColor
+                s == step -> stepColor.copy(alpha = 0.62f)
                 else -> ink.separator
             }
             Box(Modifier.weight(1f).height(4.dp).background(color, RoundedCornerShape(2.dp)))
